@@ -1,0 +1,11 @@
+body,html {
+	background-color:#DDD;
+	margin:0px;
+	padding:0px;
+}
+
+#container {
+	width:1200px;
+	margin:100px auto;
+	padding:20px;
+}
