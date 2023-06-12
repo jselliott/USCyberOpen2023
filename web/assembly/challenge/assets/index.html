@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Assembly Line HMI Interface</title>
+   <!-- Font Awesome -->
+    <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+    rel="stylesheet"
+    />
+    <!-- MDB -->
+    <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.1/mdb.min.css"
+    rel="stylesheet"
+    />
+    <!-- MDB -->
+    <script
+    type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.1/mdb.min.js"
+    ></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script type="text/javascript" src="wasm_exec.js"></script>
+  </head>
+  <body>
+    <div class="container border" style="width:800px; margin:100px auto; padding:10px;">
+      <h2 style="text-align:center">Assembly Line System Status</h2>
+      <div class="d-flex align-items-start bg-light mb-3">
+        <div class="col"><button type="button" class="btn btn-secondary btn-rounded" id="system-0"><i class="fas fa-battery-half fa-2x"></i>Battery Backup</button></div>
+        <div class="col"><button type="button" class="btn btn-secondary btn-rounded" id="system-1"><i class="fas fa-robot fa-2x"></i>Welding Robot</button></div>
+        <div class="col"><button type="button" class="btn btn-secondary btn-rounded" id="system-2"><i class="fas fa-server fa-2x"></i>Data Historian</button></div>
+      </div>
+      <div class="d-flex align-items-start bg-light mb-3">
+        <div class="col"><button type="button" class="btn btn-secondary btn-rounded" id="system-3"><i class="fas fa-fill-drip fa-2x"></i>Painting Station</button></div>
+        <div class="col"><button type="button" class="btn btn-secondary btn-rounded" id="system-4"><i class="fas fa-check fa-2x"></i>Quality Control</button></div>
+        <div class="col"></div>
+      </div>
+      <div style="font-family:'Courier New', Courier, monospace; text-align:center; padding:20px;">PWNED! Enjoy not having any new cars till you pay the ransom!</div>
+    </div>
+    <div style="color:#888; font-style:italic; text-align:center; margin-top:10px; font-size:0.8em">Challenge created for the US Cyber Open 2023 - By: <a href="https://github.com/jselliott">@tsuto</a></div>
+    <script>
+
+      function hmiRequest(msg){
+
+        const requestOptions = {
+            method: 'POST',
+            body: msg
+        };
+
+        fetch('/api/modbus', requestOptions)
+            .then(response => response.text())
+            .then( data => {
+              handleResponse(data);
+            })
+            .catch(error => {});
+      }
+
+      function setDeviceStatus(idx,status) {
+        if(status == 1){
+          $("#system-"+idx).removeClass("btn-secondary");
+          $("#system-"+idx).removeClass("btn-danger");
+          $("#system-"+idx).addClass("btn-success");
+        } else {
+          $("#system-"+idx).removeClass("btn-secondary");
+          $("#system-"+idx).removeClass("btn-success");
+          $("#system-"+idx).addClass("btn-danger");
+        }
+        console.log("[INFO] Device "+idx+" status: " + (status == 1 ? "UP" : "DOWN"));
+      }
+
+      const go = new Go();
+      WebAssembly.instantiateStreaming(fetch('main.wasm'), go.importObject).then(result => {
+        go.run(result.instance);
+      });
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,31 @@
+body,html {
+	background-color: #1f1c1d !important;
+	margin:0px;
+	padding:0px;
+}
+
+#container {
+	width:1200px;
+	margin:100px auto;
+	padding:20px;
+	color:#FFF;
+	background-color:#333;
+	text-align:center;
+	border:10px solid #0d75bd;
+}
+
+#countdown {
+	margin:50px auto;
+	text-align:center;
+	font-weight:bold;
+	font-size:1.3em;
+}
+
+.countdown_space {
+	display:inline-block;
+	height:100px;
+	padding:10px;
+	background-color: #bd141b;
+	color:#FFF;
+	font-size:24px;
+}

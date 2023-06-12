@@ -1,4 +1,4 @@
-# Hire-A-Hacker (Easy)
+# Hire-A-Hacker
 
 A CTFd compatible docker image for a web challenge. Scenario:
 

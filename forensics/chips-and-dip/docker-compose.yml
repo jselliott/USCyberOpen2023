@@ -1,0 +1,22 @@
+services:
+  server:
+    build: server/
+    container_name: uscg_forensics_dip_server
+    ports:
+      - 1337:1337
+    networks:
+      network:
+        ipv4_address: 10.10.0.100
+  client:
+    build: server/client
+    container_name: uscg_forensics_dip_client
+    networks:
+      network:
+        ipv4_address: 10.10.0.20
+networks:
+  network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.10.0.0/16
+          gateway: 10.10.0.1

@@ -1,0 +1,19 @@
+body {
+	background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,228,179,1) 100%);
+	background-color: rgba(255,228,179,1);
+	background-repeat: no-repeat;
+	background-size: cover;
+	font-family: 'Times New Roman', Times, serif;
+}
+
+#container {
+	width:1200px;
+	margin: 100px auto;
+	padding:20px;
+	border:1px solid #AAA;
+	border-radius:25px;
+}
+
+#header {
+	text-align:center;
+}
